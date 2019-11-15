@@ -94,7 +94,7 @@ public class JMXQueryTest
     {
         when(mBeanServerConnection.getAttribute(eq(ObjectName.getInstance("foo:bar=x")), eq("baz"))).thenReturn(42);
         runCommand("-U service:jmx:some://domain.com -O foo:bar=x -A baz -w 25 -c 50");
-        assertResponseWas(1, "JMX WARNING - baz=42 | baz=42");
+        assertResponseWas(1, "JMX WARNING - baz=42 | baz=42;25;50");
     }
 
     @Test(description = "Test invoking a zero-argument void method.")

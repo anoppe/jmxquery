@@ -175,13 +175,15 @@ public class JMXQuery
             if(attributeKey !=null) {
                 out.print(attributeName +'.'+ attributeKey +"="+checkData);
                 if ( checkData instanceof Number) {
-                    out.print (" | "+ attributeName +'.'+ attributeKey +"="+checkData);
-                }
+					out.print(String.format(" | %s.%s=%s", attributeName, attributeKey, checkData));
+					printThresholds(out);
+				}
             }
             else {
                 out.print(attributeName +"="+checkData);
                 if ( checkData instanceof Number) {
-                    out.print (" | "+ attributeName +"="+checkData);
+					out.print(String.format(" | %s=%s", attributeName, checkData));
+					printThresholds(out);
                 }
                 shown=true;
             }
@@ -196,6 +198,12 @@ public class JMXQuery
 		
 		out.println();
 		return status;
+	}
+
+	private void printThresholds(PrintStream out) {
+		if (warning != null && critical != null) {
+			out.print(String.format(";%s;%s", warning, critical));
+		}
 	}
 
 	@SuppressWarnings("unchecked")
